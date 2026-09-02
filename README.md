@@ -1,55 +1,78 @@
 # AeroDesk 🪟✨
 
-A modern Windows desktop widget and launcher system inspired by the Aero era of Windows Vista and Windows 7.
+A lightweight Windows desktop widget and launcher system inspired by the glassy Aero era of Windows Vista and Windows 7.
 
-## Vision
+## 🚧 Current status
 
-AeroDesk aims to bring lightweight desktop widgets, a customizable application launcher, and a glass-inspired interface to modern Windows.
+The initial **WPF project shell** is now in the repository.
+
+The first build includes:
+
+- A Windows .NET 8 WPF application
+- Borderless Aero-inspired glass UI
+- A working clock/date widget
+- Draggable custom title bar
+- Portable-friendly project structure
 
 ## Planned features
 
 - 🕒 Desktop clock and date widget
-- 📊 CPU, RAM, disk, and network monitoring widgets
+- 📊 CPU, RAM, disk, and network widgets
 - 📝 Sticky notes
-- 🚀 Fast application launcher
+- 🚀 Application launcher
 - 📌 Pinned applications and shortcuts
 - 🧩 Extensible widget system
-- 🎨 Aero-inspired glass, blur, transparency, and animations
-- ⚙️ Configurable widget positions and settings
+- 🎨 Glass, blur, transparency, and Aero animations
+- ⚙️ Widget positions and settings
 - 📦 Portable operation where practical
 
 ## Project structure
 
 ```text
 AeroDesk/
+├── AeroDesk.sln
 ├── src/
-│   ├── AeroDesk/
-│   │   ├── Launcher/
-│   │   ├── Widgets/
-│   │   ├── Glass/
-│   │   ├── Settings/
-│   │   └── Themes/
-│   └── AeroDesk.WidgetHost/
+│   └── AeroDesk/
+│       ├── AeroDesk.csproj
+│       ├── App.xaml
+│       ├── App.xaml.cs
+│       ├── MainWindow.xaml
+│       └── MainWindow.xaml.cs
 ├── widgets/
 ├── assets/
 ├── docs/
 └── README.md
 ```
 
-## Status
+## Requirements
 
-🚧 **Early development** — the repository is currently being bootstrapped.
+- Windows
+- .NET 8 SDK
+- A Windows-compatible IDE or `dotnet` CLI
 
-The first milestone is a working Windows desktop window with an Aero-style appearance, followed by the initial widget host and launcher.
+## Build
 
-## Development
+```powershell
+dotnet build AeroDesk.sln
+```
 
-The project is intended for Windows. The implementation will use native Windows APIs and a suitable .NET desktop UI framework as development progresses.
+## Run
 
-## Contributing
+```powershell
+dotnet run --project src/AeroDesk/AeroDesk.csproj
+```
 
-Ideas, bug reports, and improvements are welcome. Open an issue or pull request on GitHub.
+## Roadmap
+
+1. ✅ Create the base WPF project
+2. ✅ Add the first Aero-style shell
+3. 🔲 Build a reusable widget host
+4. 🔲 Turn the clock into a standalone desktop widget
+5. 🔲 Add the application launcher
+6. 🔲 Add widget configuration and persistence
+7. 🔲 Add Windows blur/backdrop effects
+8. 🔲 Package portable releases
 
 ## License
 
-License to be decided during the early development phase.
+License to be decided during early development.
