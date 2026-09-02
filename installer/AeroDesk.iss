@@ -19,17 +19,17 @@ WizardStyle=modern
 
 [Types]
 Name: "normal"; Description: "Normal installation"
-Name: "portable"; Description: "Portable (no shortcuts)"
+Name: "portable"; Description: "Portable installation"
 
 [Files]
-Source: "..\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\publish\win-x64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\AeroDesk"; Filename: "{app}\{#MyAppExeName}"; Tasks: normalicon
 Name: "{autodesktop}\AeroDesk"; Filename: "{app}\{#MyAppExeName}"; Tasks: normalicon
 
 [Tasks]
-Name: "normalicon"; Description: "Create Start Menu and desktop shortcuts"; Flags: unchecked
+Name: "normalicon"; Description: "Create Start Menu and desktop shortcuts"; Flags: checkedonce
 
 [Code]
 procedure InitializeWizard;
@@ -43,6 +43,9 @@ begin
   if CurPageID = wpSelectDir then
   begin
     if WizardForm.TypesCombo.ItemIndex = 1 then
+    begin
       WizardForm.DirEdit.Text := ExpandConstant('{userappdata}\AeroDesk-Portable');
+      WizardSelectTasks('');
+    end;
   end;
 end;
