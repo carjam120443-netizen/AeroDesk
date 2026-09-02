@@ -1,0 +1,10 @@
+<UserControl x:Class="AeroDesk.Widgets.SystemMonitorWidget" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" MinWidth="280" MinHeight="160">
+ <Border Padding="20" CornerRadius="14" Background="#BFFFFFFF" BorderBrush="#70FFFFFF" BorderThickness="1">
+  <StackPanel>
+   <TextBlock Text="SYSTEM MONITOR" FontWeight="Bold" Foreground="#B0FFFFFF"/>
+   <TextBlock x:Name="CpuText" Margin="0,12,0,0" FontSize="22" Foreground="White"/>
+   <TextBlock x:Name="RamText" Margin="0,6,0,0" FontSize="18" Foreground="White"/>
+   <TextBlock x:Name="UptimeText" Margin="0,6,0,0" FontSize="15" Foreground="#D0FFFFFF"/>
+  </StackPanel>
+ </Border>
+</UserControl>
