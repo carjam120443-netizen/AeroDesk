@@ -55,7 +55,7 @@ jobs:
         shell: pwsh
         run: choco install innosetup --no-progress -y
 
-      - name: Build AeroDesk installer
+      - name: Build AeroDesk normal installer
         shell: pwsh
         run: |
           $iss = Join-Path $env:GITHUB_WORKSPACE 'installer\AeroDesk.iss'
@@ -63,7 +63,15 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           Copy-Item 'installer\output\AeroDesk-Setup.exe' "AeroDesk-Setup-${{ steps.version.outputs.version }}.exe"
 
-      - name: Package portable files
+      - name: Build AeroDesk portable installer
+        shell: pwsh
+        run: |
+          $iss = Join-Path $env:GITHUB_WORKSPACE 'installer\AeroDesk-Portable.iss'
+          & 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe' $iss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Copy-Item 'installer\output\AeroDesk-Portable-Setup.exe' "AeroDesk-Portable-Setup-${{ steps.version.outputs.version }}.exe"
+
+      - name: Package portable ZIP
         shell: pwsh
         run: |
           Compress-Archive -Path publish/win-x64/* -DestinationPath "AeroDesk-Portable-${{ steps.version.outputs.version }}.zip"
@@ -87,5 +95,6 @@ jobs:
           generate_release_notes: true
           files: |
             AeroDesk-Setup-*.exe
+            AeroDesk-Portable-Setup-*.exe
             AeroDesk-Portable-*.zip
             AeroDesk-win-x64-*
