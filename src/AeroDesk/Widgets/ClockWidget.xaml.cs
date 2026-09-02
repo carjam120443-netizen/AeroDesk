@@ -9,7 +9,7 @@ public partial class ClockWidget : UserControl, IWidget
     private readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromSeconds(1) };
 
     public string Id => "clock";
-    public string Name => "Clock";
+    public string WidgetName => "Clock";
 
     public ClockWidget()
     {
