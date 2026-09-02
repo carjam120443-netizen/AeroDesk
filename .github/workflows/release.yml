@@ -2,8 +2,7 @@ name: Release AeroDesk
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -16,21 +15,47 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Publish win-x64
+      - name: Build AeroDesk
+        run: dotnet build AeroDesk.sln --configuration Release
+
+      - name: Publish AeroDesk
         run: dotnet publish src/AeroDesk/AeroDesk.csproj --configuration Release --runtime win-x64 --self-contained false --output publish/win-x64
 
-      - name: Package
+      - name: Determine version
+        id: version
         shell: pwsh
-        run: Compress-Archive -Path publish/win-x64/* -DestinationPath AeroDesk-win-x64.zip
+        run: |
+          $count = (git rev-list --count HEAD)
+          "version=0.1.$count" >> $env:GITHUB_OUTPUT
+          "tag=v0.1.$count" >> $env:GITHUB_OUTPUT
 
-      - name: Create GitHub Release
+      - name: Package release
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Path publish/win-x64 -File
+          if ($files.Count -eq 1) {
+            Copy-Item $files[0].FullName AeroDesk-win-x64-$env:VERSION-$($files[0].Name)
+          }
+          else {
+            Compress-Archive -Path publish/win-x64/* -DestinationPath AeroDesk-win-x64-$env:VERSION.zip
+          }
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+
+      - name: Create or update rolling release
         uses: softprops/action-gh-release@v2
         with:
-          files: AeroDesk-win-x64.zip
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: AeroDesk v${{ steps.version.outputs.version }}
+          target_commitish: ${{ github.sha }}
           generate_release_notes: true
+          files: |
+            AeroDesk-win-x64-*
