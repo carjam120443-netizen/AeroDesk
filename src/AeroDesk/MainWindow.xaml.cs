@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using AeroDesk.Widgets;
@@ -26,14 +27,15 @@ public partial class MainWindow : Window
         Loaded += (_, _) => SetDesktopMode(true);
     }
 
-    private void AddClock() => AddWidget(new ClockWidget(), 20 + _widgetCount * 35, 20 + _widgetCount * 35);
-    private void AddSystem() => AddWidget(new SystemMonitorWidget(), 20 + _widgetCount * 35, 20 + _widgetCount * 35);
-    private void AddNetwork() => AddWidget(new NetworkWidget(), 20 + _widgetCount * 35, 20 + _widgetCount * 35);
-    private void AddNotes() => AddWidget(new NotesWidget(), 20 + _widgetCount * 35, 20 + _widgetCount * 35);
+    private void AddClock() => AddWidget(new ClockWidget());
+    private void AddSystem() => AddWidget(new SystemMonitorWidget());
+    private void AddNetwork() => AddWidget(new NetworkWidget());
+    private void AddNotes() => AddWidget(new NotesWidget());
 
-    private void AddWidget(UserControl widget, double left, double top)
+    private void AddWidget(UserControl widget)
     {
-        WidgetHost.AddWidget(widget, left, top);
+        var offset = _widgetCount * 35;
+        WidgetHost.AddWidget(widget, 20 + offset, 20 + offset);
         _widgetCount++;
     }
 
