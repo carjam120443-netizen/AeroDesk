@@ -25,7 +25,7 @@
      <StackPanel>
       <TextBlock Text="ADD A WIDGET" FontWeight="Bold" Foreground="White" Margin="6"/>
       <Button Content="🕒 Clock" Click="AddClock_Click" Margin="4"/>
-      <Button Content="📅 Date & Calendar (coming soon)" IsEnabled="False" Margin="4"/>
+      <Button Content="📅 Date &amp; Calendar (coming soon)" IsEnabled="False" Margin="4"/>
       <Button Content="💻 System Monitor (coming soon)" IsEnabled="False" Margin="4"/>
       <Button Content="🌐 Network (coming soon)" IsEnabled="False" Margin="4"/>
       <Button Content="📝 Notes (coming soon)" IsEnabled="False" Margin="4"/>
